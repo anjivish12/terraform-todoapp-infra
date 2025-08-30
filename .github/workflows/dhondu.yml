@@ -1,7 +1,10 @@
-name: 'github action ka orkflow'
+name: 'github action ka workflow'
 
 on: workflow_dispatch
 
 jobs:
-  terraform_jobs:
-    runs_on: self-hosted
+  terraform-job:
+    runs-on: self-hosted
+    steps: 
+    - name: checkout
+      uses: action/checkout@v5.0.0
