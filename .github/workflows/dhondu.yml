@@ -1,1 +1,7 @@
+name: 'github action ka orkflow'
 
+on: workflow_dispatch
+
+jobs:
+  terraform_jobs:
+    runs_on: self-hosted
