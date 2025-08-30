@@ -6,5 +6,50 @@ jobs:
   terraform-job:
     runs-on: self-hosted
     steps: 
+    # checkout-------------------------------- task 1
     - name: checkout
       uses: action/checkout@v5.0.0
+      # terraform install-------------------------- task 2
+    - name: Install Terraform
+             # You may pin to the exact commit or the version.
+             # uses: little-core-labs/install-terraform@1e577535d279f1999a5abf60337ddc3ff225e79d
+      uses: little-core-labs/install-terraform@v2.0.0
+      with:
+        # Version of terraform to download
+        version: 1.11.0
+    - name: Azure Login
+      uses: Azure/login@v2.3.0
+      with:
+        # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+        creds: # optional
+        # ClientId of the Azure Service principal created.
+        client-id: a277420d-f039-4b96-92d7-6a6a7bb1987b
+        # TenantId of the Azure Service principal created.
+        tenant-id: 6959824b-72a3-448d-9d04-fffb6db34d48
+        # Azure subscriptionId
+        subscription-id: 96a3eaff-d4cf-4222-9fe7-1622ab46f13
+              
+        #terraform init-----------------Task 3
+        
+    - name: Terraform init azurerm backend
+      uses: ahmedig/terraform-azurerm-backend@v4
+      with:
+        # Azure Credentials in JSON format
+        azure_credentials: 
+          {
+                "client_id": "your-client-id",
+                "client_secret": "your-client-secret",
+                "tenant_id": "your-tenant-id",
+                "subscription_id": "your-subscription-id"
+          }
+
+        resource_group_name: anjali-rg
+        container_name: anji-con
+        storage_account_name: anjalistorage12
+        file_name: terraform.tfstate
+        # Subscription Id of the resource group
+        subscription_id: 96a3eaff-d4cf-4222-9fe7-1622ab46f13e
+        # Terraform working directory
+        tf_working_directory: .
+              
+              
