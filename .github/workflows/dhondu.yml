@@ -25,7 +25,5 @@ jobs:
        client-id: f567a97e-df09-4732-a931-ab2f23e743b1
        tenant-id: 6959824b-72a3-448d-9d04-fffb6db34d48
        subscription-id: 96a3eaff-d4cf-4222-9fe7-1622ab46f13e
-
-            # Azure subscriptionId
-            subscription-id: "96a3eaff-d4cf-4222-9fe7-1622ab46f13e"
+ption-id: "96a3eaff-d4cf-4222-9fe7-1622ab46f13e"
             #
