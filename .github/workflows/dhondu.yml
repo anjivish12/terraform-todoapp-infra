@@ -15,7 +15,7 @@ jobs:
       uses: little-core-labs/install-terraform@v2.0.0
       with:
         # Version of terraform to download
-        version: 1.12.0
+        version: 1.11.0
               
     
     # # azure login
