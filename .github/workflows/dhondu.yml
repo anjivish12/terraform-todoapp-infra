@@ -9,20 +9,20 @@ jobs:
   terraform-job:
     runs-on: self-hosted
     steps: 
-    # checkout-------------------------------- task 1
     - name: checkout
       uses: actions/checkout@v5.0.0
+      
     - name: Install Terraform
       uses: little-core-labs/install-terraform@v2.0.0
       with:
         version: 1.11.0
-    # azure login
+
     - name: Azure Login
       uses: Azure/login@v2.3.0
       with:
-       client-id: f567a97e-df09-4732-a931-ab2f23e743b1
-       tenant-id: 6959824b-72a3-448d-9d04-fffb6db34d48
-       subscription-id: 96a3eaff-d4cf-4222-9fe7-1622ab46f13e
+       client-id: 'f567a97e-df09-4732-a931-ab2f23e743b1'
+       tenant-id: '6959824b-72a3-448d-9d04-fffb6db34d48'
+       subscription-id: '96a3eaff-d4cf-4222-9fe7-1622ab46f13e'
 
   
 
