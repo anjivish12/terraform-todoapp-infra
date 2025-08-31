@@ -1,12 +1,13 @@
-name: 'github action ka workflow'
+name: 'first workflow'
 
 permissions:
   id-token: write
   contents: read
+
 on: workflow_dispatch
 
 jobs:
-  terraform-job:
+  first-job:
     runs-on: self-hosted
     steps: 
     - name: checkout
@@ -20,10 +21,20 @@ jobs:
     - name: Azure Login
       uses: Azure/login@v2.3.0
       with:
-       client-id: 'f567a97e-df09-4732-a931-ab2f23e743b1'
-       tenant-id: '6959824b-72a3-448d-9d04-fffb6db34d48'
-       subscription-id: '96a3eaff-d4cf-4222-9fe7-1622ab46f13e'
+       client-id: f567a97e-df09-4732-a931-ab2f23e743b1
+       tenant-id: 6959824b-72a3-448d-9d04-fffb6db34d48
+       subscription-id: 96a3eaff-d4cf-4222-9fe7-1622ab46f13e
 
-  
-
-         
+    - name: Terraform init azurerm backend
+      uses: ahmedig/terraform-azurerm-backend@v4
+      with:
+        azure_credentials: 
+        resource_group_name: anjali-rg
+        container_name: anji-con
+        storage_account_name: anjalistorage12
+        file_name: workflow.tfstate
+        subscription_id: '96a3eaff-d4cf-4222-9fe7-1622ab46f13e'
+        tf_working_directory: .
+      
+      
+               
