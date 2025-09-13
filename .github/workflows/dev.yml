@@ -14,25 +14,49 @@ on:
      - main
    
 jobs:
-  first-job:
-    runs-on: self-hosted
-    steps: 
-    - name: checkout
-      uses: actions/checkout@v5.0.0
-      
-    - name: Install Terraform
-      uses: little-core-labs/install-terraform@v2.0.0
-      with:
-        version: 1.11.0
-
-    - name: Azure Login
+   terraform-init-plan:
+    name: first job
+    runs-on: [self-hosted, anjali]
+    steps:
+    - name: jaa login kr Azure se 
       uses: Azure/login@v2.3.0
-      with:
-       client-id: a277420d-f039-4b96-92d7-6a6a7bb1987b
-       tenant-id: 6959824b-72a3-448d-9d04-fffb6db34d48
-       subscription-id: 96a3eaff-d4cf-4222-9fe7-1622ab46f13e
+      with:   
+          client-id: 797b2efe-6a48-4c3b-b1b1-71b08221e046
+          tenant-id: ee2f7139-4072-4385-99fc-82bd6f563aa6
+          subscription-id: 98b7163f-e961-4b65-98c2-7a6dc2edf5b7
 
+    - name: copy kr repo to self hosted runner me
+      uses: actions/checkout@v4
+      
+    - name: Terraform Init chala
+      id: init
+      run: terraform init -input=false
+      working-directory: ./parent_module 
 
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt
+      working-directory: .
       
+    - name: Terraform validate kr
+      id: validate
+      run: terraform validate
+      working-directory: ./parent_module 
       
-               
+    - name: Terraform Plan kr
+      id: plan
+      run: terraform plan -no-color -input=false
+      working-directory: ./parent_module 
+      
+   terraform-apply:
+    name: second job
+    runs-on: [self-hosted, anjali]
+    needs: terraform-init-plan
+    # when you have ur main branch
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Terraform apply kr
+        id: apply
+        run: terraform apply -auto-approve
+        working-directory: ./parent_module 
+        
