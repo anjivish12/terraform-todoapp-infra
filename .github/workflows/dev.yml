@@ -31,22 +31,22 @@ jobs:
     - name: Terraform Init chala
       id: init
       run: terraform init -input=false
-      working-directory: ./parent_module 
+      working-directory: environment/dev
 
     - name: Terraform fmt
       id: fmt
       run: terraform fmt
-      working-directory: .
+      working-directory: environment/dev
       
     - name: Terraform validate kr
       id: validate
       run: terraform validate
-      working-directory: ./parent_module 
+      working-directory: environment/dev 
       
     - name: Terraform Plan kr
       id: plan
       run: terraform plan -no-color -input=false
-      working-directory: ./parent_module 
+      working-directory: environment/dev
       
    terraform-apply:
     name: second job
@@ -55,8 +55,14 @@ jobs:
     # when you have ur main branch
     if: github.ref == 'refs/heads/main'
     steps:
+    
+      - name: Terraform Init chala
+        id: init
+        run: terraform init -input=false
+        working-directory: environment/dev
+        
       - name: Terraform apply kr
         id: apply
         run: terraform apply -auto-approve
-        working-directory: ./parent_module 
+        working-directory: environment/dev
         
