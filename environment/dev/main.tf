@@ -7,6 +7,17 @@ module "rg" {
     name = "rg"
   }
 }
+
+module "rg1" {
+  source   = "../../modules/azurerm_resource_group"
+  rg_name  = "rg-moon-1"
+  location = "East US"
+  tags = {
+    env  = "dev"
+    name = "rg"
+  }
+}
+
 module "stg" {
   depends_on = [module.rg]
   source     = "../../modules/azurerm_storage_account"
