@@ -1,11 +1,18 @@
-name: 'first workflow'
+name: 'dev workflow'
 
 permissions:
   id-token: write
   contents: read
 
-on: workflow_dispatch
+on:
+ pull_request:
+  branches:
+   - main
 
+ push:
+   branches:
+     - main
+   
 jobs:
   first-job:
     runs-on: self-hosted
