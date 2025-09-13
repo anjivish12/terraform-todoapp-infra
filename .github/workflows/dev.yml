@@ -52,6 +52,7 @@ jobs:
     name: second job
     runs-on: [self-hosted, anjali]
     needs: terraform-init-plan
+    environment: dev
     # when you have ur main branch
     if: github.ref == 'refs/heads/main'
     steps:
